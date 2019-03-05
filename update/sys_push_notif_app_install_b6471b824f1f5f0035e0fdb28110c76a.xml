@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_push_notif_app_install">
+    <sys_push_notif_app_install action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <last_registered_on>2018-09-11 11:51:30</last_registered_on>
+        <sys_class_name>sys_push_notif_app_install</sys_class_name>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-07-16 08:37:32</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>b6471b824f1f5f0035e0fdb28110c76a</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>014a47594ae115616f2992e910565e1ca6e282f105dda9722224baeb2fd1f738</sys_name>
+        <sys_package display_value="Cozmo Guard" source="x_snc_cozmo_guard">2df0e27d4fdf1f009881c5c18110c780</sys_package>
+        <sys_policy/>
+        <sys_push_application_id display_value="ServiceNow Classic Mobile Application">ab704041ff1102009738ffffffffff33</sys_push_application_id>
+        <sys_push_platform_id display_value="Apple">20e71f30ff0002009738ffffffffff6b</sys_push_platform_id>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Cozmo Guard">2df0e27d4fdf1f009881c5c18110c780</sys_scope>
+        <sys_update_name>sys_push_notif_app_install_b6471b824f1f5f0035e0fdb28110c76a</sys_update_name>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2018-09-11 11:51:30</sys_updated_on>
+        <sys_user_id display_value="Arnoud Kooi">8bd7898ddbab32008eab5cd4dc9619ef</sys_user_id>
+        <token>014a47594ae115616f2992e910565e1ca6e282f105dda9722224baeb2fd1f738</token>
+    </sys_push_notif_app_install>
+</record_update>

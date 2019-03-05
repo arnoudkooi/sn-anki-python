@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_snc_cozmo_guard.CommandProbeES</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Creating and executing a CommandProbe on the MID server</description>
+        <name>CommandProbeES</name>
+        <script><![CDATA[var CommandProbeES = Class.create();
+
+CommandProbeES.prototype = {
+   initialize : function(mid_server) {
+      this.midServer = mid_server;
+      this.source = "";
+      this.name = "CommandProbeES"; // optional probe name
+	  this.payloadDoc = "";
+   },   
+   
+   setName : function(name) {
+      this.name = name;
+   },
+   
+   setSource : function(s) {
+      this.source = s;
+   },
+   
+   setCommand : function(cmd) {
+      this.payloadDoc = '<parameters><parameter name="name" value="' + 
+			cmd + '"/></parameters>';
+   },
+   
+   create : function() {
+      var egr = new GlideRecord("ecc_queue");
+      egr.agent = "mid.server." + this.midServer;
+      egr.queue = "output";
+      egr.state = "ready";
+      egr.topic = "Command";
+      egr.name = this.name;
+      egr.source = this.source;
+      egr.payload = this.payloadDoc;
+      return egr.insert();
+   },
+   
+   type: 'CommandProbeES'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-07-15 16:00:18</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>470377b14fd35f009881c5c18110c7ea</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>CommandProbeES</sys_name>
+        <sys_package display_value="Cozmo Guard" source="x_snc_cozmo_guard">2df0e27d4fdf1f009881c5c18110c780</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Cozmo Guard">2df0e27d4fdf1f009881c5c18110c780</sys_scope>
+        <sys_update_name>sys_script_include_470377b14fd35f009881c5c18110c7ea</sys_update_name>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2018-07-15 16:00:18</sys_updated_on>
+    </sys_script_include>
+</record_update>

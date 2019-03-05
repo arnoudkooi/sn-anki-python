@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>e7e989ea4f9b9f0035e0fdb28110c726</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_cozmo_guard_python_commands">
+    <x_snc_cozmo_guard_python_commands action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <file_name>twsecret.py</file_name>
+        <name>twsecret</name>
+        <script># Copyright (c) 2016 Anki, Inc.&#13;
+#&#13;
+# Licensed under the Apache License, Version 2.0 (the "License");&#13;
+# you may not use this file except in compliance with the License.&#13;
+# You may obtain a copy of the License in the file LICENSE.txt or at&#13;
+#&#13;
+#     http://www.apache.org/licenses/LICENSE-2.0&#13;
+#&#13;
+# Unless required by applicable law or agreed to in writing, software&#13;
+# distributed under the License is distributed on an "AS IS" BASIS,&#13;
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#13;
+# See the License for the specific language governing permissions and&#13;
+# limitations under the License.&#13;
+&#13;
+'''Cozmo's Twitter keys&#13;
+&#13;
+Secret Twitter keys for your Cozmo robot's Twitter account (used by tweet_at_cozmo.py)&#13;
+   To generate these you need to setup a Twitter account with developer keys:&#13;
+   1) Create a Twitter account for your Cozmo, and login to that account in your web browser&#13;
+   2) Go to https://apps.twitter.com/app/new and create your application:&#13;
+      a) Fill in the name and details etc. (most are optional)&#13;
+      b) Select "Permissions" tab and set Access to Read and Write (this example needs to read and write tweets)&#13;
+      c) Select "Keys and Access Tokens" tab and click "Generate an Access Token and Secret"&#13;
+      d) Paste your consumer key + secret, and access token + secret below into the XXXXXXXXXX fields&#13;
+      e) Keep this file safe - don't distribute it to other people, these keys allow anyone full access to the&#13;
+         associated Twitter account!!!&#13;
+'''&#13;
+&#13;
+# Secret keys for doing OAuth with Twitter, these should be kept private...&#13;
+# Keep the "Consumer Secret" a secret. This key should never be human-readable in your application...&#13;
+# This access token can be used to make API requests on that account's behalf. Do not share your access token secret with anyone.&#13;
+&#13;
+# DO NOT DISTRIBUTE THIS FILE WITH YOUR KEYS AND SECRETS IN - THEY GIVE FULL ACCESS TO YOUR TWITTER ACCOUNT&#13;
+&#13;
+CONSUMER_KEY = ''&#13;
+CONSUMER_SECRET = ''&#13;
+ACCESS_TOKEN = ''&#13;
+ACCESS_TOKEN_SECRET = ''&#13;
+</script>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-07-17 11:37:02</sys_created_on>
+        <sys_id>e7e989ea4f9b9f0035e0fdb28110c726</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2019-03-05 21:12:09</sys_updated_on>
+        <test_parameters/>
+    </x_snc_cozmo_guard_python_commands>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2019-03-05 21:13:43</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>3d35b04d4f8c33009881c5c18110c709</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>twsecret.py</sys_name>
+        <sys_package display_value="Cozmo Guard" source="x_snc_cozmo_guard">2df0e27d4fdf1f009881c5c18110c780</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Cozmo Guard">2df0e27d4fdf1f009881c5c18110c780</sys_scope>
+        <sys_update_name>sys_metadata_link_3d35b04d4f8c33009881c5c18110c709</sys_update_name>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2019-03-05 21:13:43</sys_updated_on>
+        <tablename>x_snc_cozmo_guard_python_commands</tablename>
+    </sys_metadata_link>
+</record_update>

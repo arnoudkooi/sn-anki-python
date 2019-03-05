@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>f446f80a4f575f009881c5c18110c7ec</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_cozmo_guard_python_commands">
+    <x_snc_cozmo_guard_python_commands action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <file_name>drive_to_charger.py</file_name>
+        <name>Drive To Charger</name>
+        <script>&#13;
+'''Make Cozmo drive towards his charger.&#13;
+&#13;
+The script shows an example of accessing the charger object from&#13;
+Cozmo's world, and driving towards it.&#13;
+'''&#13;
+&#13;
+import asyncio&#13;
+import time&#13;
+&#13;
+import cozmo&#13;
+from cozmo.util import degrees, distance_mm, speed_mmps&#13;
+&#13;
+&#13;
+def drive_to_charger(robot):&#13;
+    '''The core of the drive_to_charger program'''&#13;
+&#13;
+    # If the robot was on the charger, drive them forward and clear of the charger&#13;
+    if robot.is_on_charger:&#13;
+        # drive off the charger&#13;
+        robot.drive_off_charger_contacts().wait_for_completed()&#13;
+        robot.drive_straight(distance_mm(100), speed_mmps(50)).wait_for_completed()&#13;
+        # Start moving the lift down&#13;
+        robot.move_lift(-3)&#13;
+        # turn around to look at the charger&#13;
+        robot.turn_in_place(degrees(180)).wait_for_completed()&#13;
+        # Tilt the head to be level&#13;
+        robot.set_head_angle(degrees(0)).wait_for_completed()&#13;
+        # wait half a second to ensure Cozmo has seen the charger&#13;
+        time.sleep(0.5)&#13;
+        # drive backwards away from the charger&#13;
+        robot.drive_straight(distance_mm(-60), speed_mmps(50)).wait_for_completed()&#13;
+&#13;
+    # try to find the charger&#13;
+    charger = None&#13;
+&#13;
+    # see if Cozmo already knows where the charger is&#13;
+    if robot.world.charger:&#13;
+        if robot.world.charger.pose.is_comparable(robot.pose):&#13;
+            print("Cozmo already knows where the charger is!")&#13;
+            charger = robot.world.charger&#13;
+        else:&#13;
+            # Cozmo knows about the charger, but the pose is not based on the&#13;
+            # same origin as the robot (e.g. the robot was moved since seeing&#13;
+            # the charger) so try to look for the charger first&#13;
+            pass&#13;
+&#13;
+    if not charger:&#13;
+        # Tell Cozmo to look around for the charger&#13;
+        look_around = robot.start_behavior(cozmo.behavior.BehaviorTypes.LookAroundInPlace)&#13;
+        try:&#13;
+            charger = robot.world.wait_for_observed_charger(timeout=30)&#13;
+            print("Found charger: %s" % charger)&#13;
+        except asyncio.TimeoutError:&#13;
+            print("Didn't see the charger")&#13;
+        finally:&#13;
+            # whether we find it or not, we want to stop the behavior&#13;
+            look_around.stop()&#13;
+&#13;
+    if charger:&#13;
+        # Attempt to drive near to the charger, and then stop.&#13;
+        action = robot.go_to_object(charger, distance_mm(65.0))&#13;
+        action.wait_for_completed()&#13;
+        print("Completed action: result = %s" % action)&#13;
+        print("Done.")&#13;
+&#13;
+&#13;
+cozmo.robot.Robot.drive_off_charger_on_connect = False  # Cozmo can stay on charger for now&#13;
+cozmo.run_program(drive_to_charger, use_viewer=True, force_viewer_on_top=True)&#13;
+</script>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-07-15 20:53:59</sys_created_on>
+        <sys_id>f446f80a4f575f009881c5c18110c7ec</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2018-07-15 20:53:59</sys_updated_on>
+        <test_parameters/>
+    </x_snc_cozmo_guard_python_commands>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2019-03-05 21:13:44</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>bd35b04d4f8c33009881c5c18110c70e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>drive_to_charger.py</sys_name>
+        <sys_package display_value="Cozmo Guard" source="x_snc_cozmo_guard">2df0e27d4fdf1f009881c5c18110c780</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Cozmo Guard">2df0e27d4fdf1f009881c5c18110c780</sys_scope>
+        <sys_update_name>sys_metadata_link_bd35b04d4f8c33009881c5c18110c70e</sys_update_name>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2019-03-05 21:13:44</sys_updated_on>
+        <tablename>x_snc_cozmo_guard_python_commands</tablename>
+    </sys_metadata_link>
+</record_update>

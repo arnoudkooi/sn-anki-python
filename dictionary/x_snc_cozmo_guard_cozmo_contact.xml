@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element audit="true" label="Cozmo Contact" max_length="40" name="x_snc_cozmo_guard_cozmo_contact" type="collection">
+        <element attributes="edge_encryption_enabled=true" display="true" label="Email" max_length="100" name="email" type="email"/>
+        <element attributes="edge_encryption_enabled=true" label="Email Send" max_length="40" name="email_send" type="boolean"/>
+        <element label="Messages" max_length="4000" name="messages" type="journal"/>
+    </element>
+</database>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>36f5cd024f975f009881c5c18110c790</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_cozmo_guard_python_commands">
+    <x_snc_cozmo_guard_python_commands action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <file_name>saveimage2.py</file_name>
+        <name>SaveImage2</name>
+        <script>#!/usr/bin/env python3&#13;
+&#13;
+&#13;
+'''Demonstrate the manual and auto exposure settings of Cozmo's camera.&#13;
+This example demonstrates the use of auto exposure and manual exposure for&#13;
+Cozmo's camera. The current camera settings are overlayed onto the camera&#13;
+viewer window.&#13;
+'''&#13;
+&#13;
+&#13;
+import sys&#13;
+import time&#13;
+&#13;
+try:&#13;
+    from PIL import ImageDraw, ImageFont&#13;
+    import numpy as np&#13;
+except ImportError:&#13;
+    sys.exit('run `pip3 install --user Pillow numpy` to run this example')&#13;
+&#13;
+import cozmo&#13;
+&#13;
+&#13;
+# A global string value to display in the camera viewer window to make it more&#13;
+# obvious what the example program is currently doing.&#13;
+example_mode = ""&#13;
+&#13;
+&#13;
+# An annotator for live-display of all of the camera info on top of the camera&#13;
+# viewer window.&#13;
+@cozmo.annotate.annotator&#13;
+def camera_info(image, scale, annotator=None, world=None, **kw):&#13;
+    d = ImageDraw.Draw(image)&#13;
+    bounds = [3, 0, image.width, image.height]&#13;
+&#13;
+    camera = world.robot.camera&#13;
+    text_to_display = "Example Mode: " + example_mode + "\n\n"&#13;
+    text_to_display += "Fixed Camera Settings (Calibrated for this Robot):\n\n"&#13;
+    text_to_display += 'focal_length: %s\n' % camera.config.focal_length&#13;
+    text_to_display += 'center: %s\n' % camera.config.center&#13;
+    text_to_display += 'fov: &lt;%.3f, %.3f&gt; degrees\n' % (camera.config.fov_x.degrees,&#13;
+                                                        camera.config.fov_y.degrees)&#13;
+    text_to_display += "\n"&#13;
+    text_to_display += "Valid exposure and gain ranges:\n\n"&#13;
+    text_to_display += 'exposure: %s..%s\n' % (camera.config.min_exposure_time_ms,&#13;
+                                               camera.config.max_exposure_time_ms)&#13;
+    text_to_display += 'gain: %.3f..%.3f\n' % (camera.config.min_gain,&#13;
+                                               camera.config.max_gain)&#13;
+    text_to_display += "\n"&#13;
+    text_to_display += "Current settings:\n\n"&#13;
+    text_to_display += 'Auto Exposure Enabled: %s\n' % camera.is_auto_exposure_enabled&#13;
+    text_to_display += 'Exposure: %s ms\n' % camera.exposure_ms&#13;
+    text_to_display += 'Gain: %.3f\n' % camera.gain&#13;
+    color_mode_str = "Color" if camera.color_image_enabled else "Grayscale"&#13;
+    text_to_display += 'Color Mode: %s\n' % color_mode_str&#13;
+&#13;
+    text = cozmo.annotate.ImageText(text_to_display,&#13;
+                                    position=cozmo.annotate.TOP_LEFT,&#13;
+                                    line_spacing=2,&#13;
+                                    color="white",&#13;
+                                    outline_color="black", full_outline=True)&#13;
+    text.render(d, bounds)&#13;
+&#13;
+&#13;
+def demo_camera_exposure(robot: cozmo.robot.Robot):&#13;
+    global example_mode&#13;
+&#13;
+    # Ensure camera is in auto exposure mode and demonstrate auto exposure for 5 seconds&#13;
+    camera = robot.camera&#13;
+    camera.enable_auto_exposure()&#13;
+    example_mode = "Auto Exposure"&#13;
+    time.sleep(5)&#13;
+&#13;
+    # Demonstrate manual exposure, linearly increasing the exposure time, while&#13;
+    # keeping the gain fixed at a medium value.&#13;
+    example_mode = "Manual Exposure - Increasing Exposure, Fixed Gain"&#13;
+    fixed_gain = (camera.config.min_gain + camera.config.max_gain) * 0.5&#13;
+    for exposure in range(camera.config.min_exposure_time_ms, camera.config.max_exposure_time_ms+1, 1):&#13;
+        camera.set_manual_exposure(exposure, fixed_gain)&#13;
+        time.sleep(0.1)&#13;
+&#13;
+    # Demonstrate manual exposure, linearly increasing the gain, while keeping&#13;
+    # the exposure fixed at a relatively low value.&#13;
+    example_mode = "Manual Exposure - Increasing Gain, Fixed Exposure"&#13;
+    fixed_exposure_ms = 10&#13;
+    for gain in np.arange(camera.config.min_gain, camera.config.max_gain, 0.05):&#13;
+        camera.set_manual_exposure(fixed_exposure_ms, gain)&#13;
+        time.sleep(0.1)&#13;
+&#13;
+    # Switch back to auto exposure, demo for a final 5 seconds and then return&#13;
+    camera.enable_auto_exposure()&#13;
+    example_mode = "Mode: Auto Exposure"&#13;
+    time.sleep(5)&#13;
+&#13;
+&#13;
+def cozmo_program(robot: cozmo.robot.Robot):&#13;
+    robot.world.image_annotator.add_annotator('camera_info', camera_info)&#13;
+&#13;
+    # Demo with default grayscale camera images&#13;
+    robot.camera.color_image_enabled = False&#13;
+    demo_camera_exposure(robot)&#13;
+&#13;
+    # Demo with color camera images&#13;
+    robot.camera.color_image_enabled = True&#13;
+    demo_camera_exposure(robot)&#13;
+&#13;
+&#13;
+cozmo.robot.Robot.drive_off_charger_on_connect = False  # Cozmo can stay on his charger for this example&#13;
+cozmo.run_program(cozmo_program, use_viewer=True, force_viewer_on_top=True)&#13;
+</script>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-07-15 22:02:39</sys_created_on>
+        <sys_id>36f5cd024f975f009881c5c18110c790</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2018-07-15 22:03:13</sys_updated_on>
+        <test_parameters/>
+    </x_snc_cozmo_guard_python_commands>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2019-03-05 21:13:42</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>2d35704d4f8c33009881c5c18110c79c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>saveimage2.py</sys_name>
+        <sys_package display_value="Cozmo Guard" source="x_snc_cozmo_guard">2df0e27d4fdf1f009881c5c18110c780</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Cozmo Guard">2df0e27d4fdf1f009881c5c18110c780</sys_scope>
+        <sys_update_name>sys_metadata_link_2d35704d4f8c33009881c5c18110c79c</sys_update_name>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2019-03-05 21:13:42</sys_updated_on>
+        <tablename>x_snc_cozmo_guard_python_commands</tablename>
+    </sys_metadata_link>
+</record_update>

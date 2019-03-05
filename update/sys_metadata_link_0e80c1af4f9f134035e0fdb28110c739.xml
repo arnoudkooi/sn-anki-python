@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>9dc949824f975f009881c5c18110c794</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_cozmo_guard_python_commands">
+    <x_snc_cozmo_guard_python_commands action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <file_name>tap.py</file_name>
+        <name>tap</name>
+        <script>#!/usr/bin/env python3&#13;
+&#13;
+import sys&#13;
+import time&#13;
+import requests&#13;
+import asyncio&#13;
+&#13;
+import cozmo&#13;
+import cozmo.lights as lights&#13;
+&#13;
+from cozmo.objects import LightCube1Id, LightCube2Id, LightCube3Id&#13;
+&#13;
+cube1 = None&#13;
+cube2 = None&#13;
+cube3 = None&#13;
+&#13;
+import asyncio&#13;
+import sys&#13;
+&#13;
+import cozmo&#13;
+&#13;
+class BlinkyCube(cozmo.objects.LightCube):&#13;
+    '''Subclass LightCube and add a light-chaser effect.'''&#13;
+    def __init__(self, *a, **kw):&#13;
+        super().__init__(*a, **kw)&#13;
+        self._chaser = None&#13;
+&#13;
+    def start_light_chaser(self, blink_color):&#13;
+        '''Cycles the lights around the cube with 1 corner lit up green,&#13;
+        changing to the next corner every 0.1 seconds.&#13;
+        '''&#13;
+        if self._chaser:&#13;
+            raise ValueError("Light chaser already running")&#13;
+        async def _chaser():&#13;
+            while True:&#13;
+                for i in range(4):&#13;
+                    cols = [cozmo.lights.off_light] * 4&#13;
+                    cols[i] = blink_color&#13;
+                    self.set_light_corners(*cols)&#13;
+                    await asyncio.sleep(0.1, loop=self._loop)&#13;
+        self._chaser = asyncio.ensure_future(_chaser(), loop=self._loop)&#13;
+&#13;
+    def stop_light_chaser(self):&#13;
+        if self._chaser:&#13;
+            self._chaser.cancel()&#13;
+            self._chaser = None&#13;
+&#13;
+&#13;
+# Make sure World knows how to instantiate the subclass&#13;
+cozmo.world.World.light_cube_factory = BlinkyCube&#13;
+&#13;
+&#13;
+&#13;
+def block_button(robot: cozmo.robot.Robot):&#13;
+    global cube1&#13;
+    global cube2&#13;
+    global cube3&#13;
+    &#13;
+    prio = int(sys.argv[3])&#13;
+    &#13;
+    cube1 = robot.world.get_light_cube(LightCube1Id)  # looks like a paperclip&#13;
+    cube2 = robot.world.get_light_cube(LightCube2Id)  # looks like a lamp / heart&#13;
+    cube3 = robot.world.get_light_cube(LightCube3Id)  # looks like the letters 'ab' over 'T'&#13;
+&#13;
+    start_flashing(prio)&#13;
+        &#13;
+    robot.say_text("Current priority is " + str(prio) + " tap block to change.").wait_for_completed()&#13;
+&#13;
+    robot.add_event_handler(cozmo.objects.EvtObjectTapped, object_tapped)&#13;
+    time.sleep(30)&#13;
+&#13;
+def object_tapped(evt, *, obj, tap_count, tap_duration, tap_intensity, **kwargs):&#13;
+    print("Tapped!", obj)&#13;
+    &#13;
+    prio = obj.object_id&#13;
+    if obj.object_id == 0:&#13;
+        prio = 3&#13;
+        &#13;
+    start_flashing(prio)&#13;
+    update_incident(evt, str(prio))&#13;
+        &#13;
+def start_flashing(prio):&#13;
+    if prio == 1:&#13;
+        cube1.start_light_chaser(cozmo.lights.red_light)&#13;
+        cube2.stop_light_chaser()&#13;
+        cube3.stop_light_chaser()&#13;
+        cube2.set_lights(cozmo.lights.green_light)&#13;
+        cube3.set_lights(cozmo.lights.blue_light)&#13;
+    if prio == 2:&#13;
+        cube2.start_light_chaser(cozmo.lights.green_light)&#13;
+        cube1.stop_light_chaser()&#13;
+        cube3.stop_light_chaser()&#13;
+        cube1.set_lights(cozmo.lights.red_light)&#13;
+        cube3.set_lights(cozmo.lights.blue_light)&#13;
+    if prio == 3:&#13;
+        cube3.start_light_chaser(cozmo.lights.blue_light)&#13;
+        cube1.stop_light_chaser()&#13;
+        cube2.stop_light_chaser()&#13;
+        cube1.set_lights(cozmo.lights.red_light)&#13;
+        cube2.set_lights(cozmo.lights.green_light)&#13;
+        &#13;
+&#13;
+def update_incident(evt, prio):&#13;
+  url = 'https://  your instance quik and dirty .service-now.com/api/now/table/'+ sys.argv[1] +'/' + sys.argv[2]&#13;
+  headers = {"Content-Type":"application/json","Accept":"application/json"}&#13;
+  response = requests.put(url, auth=("ss", "dont put pw here"), headers=headers ,data="{\"impact\":"+ &#13;
+                          prio +",\"urgency\":"+ 1 +",\"work_notes\":\"Priority change to "+ prio +" by Cozmo tap\"}")&#13;
+  &#13;
+  if response.status_code != 200: &#13;
+    print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:',response.json())&#13;
+    exit() &#13;
+    &#13;
+  evt.obj.world.robot.say_text("Priority set to " + prio ).wait_for_completed()&#13;
+&#13;
+&#13;
+cozmo.run_program(block_button)</script>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-07-15 22:19:13</sys_created_on>
+        <sys_id>9dc949824f975f009881c5c18110c794</sys_id>
+        <sys_mod_count>68</sys_mod_count>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2019-03-05 21:10:47</sys_updated_on>
+        <test_parameters>incident b9a633db4f1a930035e0fdb28110c728 2</test_parameters>
+    </x_snc_cozmo_guard_python_commands>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-07-20 13:29:44</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>0e80c1af4f9f134035e0fdb28110c739</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>tap.py</sys_name>
+        <sys_package display_value="Cozmo Guard" source="x_snc_cozmo_guard">2df0e27d4fdf1f009881c5c18110c780</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Cozmo Guard">2df0e27d4fdf1f009881c5c18110c780</sys_scope>
+        <sys_update_name>sys_metadata_link_0e80c1af4f9f134035e0fdb28110c739</sys_update_name>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2019-03-05 21:13:43</sys_updated_on>
+        <tablename>x_snc_cozmo_guard_python_commands</tablename>
+    </sys_metadata_link>
+</record_update>

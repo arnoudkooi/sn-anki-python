@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>e40b05064f975f009881c5c18110c7d7</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_cozmo_guard_python_commands">
+    <x_snc_cozmo_guard_python_commands action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <file_name>random.py</file_name>
+        <name>Random</name>
+        <script>import cozmo&#13;
+import random&#13;
+&#13;
+def cozmo_program(robot: cozmo.robot.Robot):&#13;
+    # grab a list of animation triggers&#13;
+    all_animation_triggers = robot.anim_triggers&#13;
+&#13;
+    # randomly shuffle the animations&#13;
+    random.shuffle(all_animation_triggers)&#13;
+&#13;
+    # select the first three animations from the shuffled list&#13;
+    triggers = 3&#13;
+    chosen_triggers = all_animation_triggers[:triggers]&#13;
+    print('Playing {} random animations:'.format(triggers))&#13;
+&#13;
+    # play the three random animations one after the other, waiting for each to complete&#13;
+    for trigger in chosen_triggers:&#13;
+        print('Playing {}'.format(trigger.name))&#13;
+        robot.play_anim_trigger(trigger).wait_for_completed()&#13;
+&#13;
+&#13;
+    # grab animation triggers that have 'WinGame' in their name&#13;
+    chosen_triggers = [trigger for trigger in robot.anim_triggers if 'WinGame' in trigger.name]&#13;
+&#13;
+    # play the three random animations one after the other, waiting for each to complete&#13;
+    for trigger in chosen_triggers:&#13;
+        print('Playing {}'.format(trigger.name))&#13;
+        robot.play_anim_trigger(trigger).wait_for_completed()&#13;
+&#13;
+cozmo.run_program(cozmo_program)&#13;
+</script>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-07-15 22:24:37</sys_created_on>
+        <sys_id>e40b05064f975f009881c5c18110c7d7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2018-07-15 22:24:37</sys_updated_on>
+        <test_parameters/>
+    </x_snc_cozmo_guard_python_commands>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2019-03-05 21:13:43</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>7135b04d4f8c33009881c5c18110c708</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>random.py</sys_name>
+        <sys_package display_value="Cozmo Guard" source="x_snc_cozmo_guard">2df0e27d4fdf1f009881c5c18110c780</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Cozmo Guard">2df0e27d4fdf1f009881c5c18110c780</sys_scope>
+        <sys_update_name>sys_metadata_link_7135b04d4f8c33009881c5c18110c708</sys_update_name>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2019-03-05 21:13:43</sys_updated_on>
+        <tablename>x_snc_cozmo_guard_python_commands</tablename>
+    </sys_metadata_link>
+</record_update>

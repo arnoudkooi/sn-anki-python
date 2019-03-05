@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_cb_topic">
+    <sys_cb_topic action="INSERT_OR_UPDATE">
+        <applicability/>
+        <connect_queue/>
+        <description/>
+        <graph>{
+  "graph_api_version": "1.0.3",
+  "goals": {
+    "413725b39f06459bb9e791680a8ecc0f": {
+      "id": "413725b39f06459bb9e791680a8ecc0f",
+      "trigger": {
+        "type": "primary"
+      },
+      "name": "primary",
+      "applicability": "",
+      "description": "",
+      "nodes": {
+        "200bd9efea5847e7b289ece42b8a6285": {
+          "id": "200bd9efea5847e7b289ece42b8a6285",
+          "stepType": "Start",
+          "name": "Start",
+          "greetingResponse": {
+            "value": "Hi let me help",
+            "mode": "simple"
+          }
+        },
+        "12982bfd55454a8dada61a424c904932": {
+          "id": "12982bfd55454a8dada61a424c904932",
+          "stepType": "TerminateGoal",
+          "name": "End",
+          "confirmationMessage": {
+            "mode": "simple",
+            "value": ""
+          }
+        },
+        "db350c219de14686b61abb45ada166f5": {
+          "id": "db350c219de14686b61abb45ada166f5",
+          "stepType": "ScriptOutput",
+          "name": "Sleep",
+          "output_type": "single_part",
+          "script": "(function execute() {\n\n      //gs.sleep(3000);\n   var multiOutMsg = new sn_cs.MultiPartOutMsg();\n       multiOutMsg.setNavigationLabel('Click for More');\n       multiOutMsg.addPlainTextPart('text part 1');\n       multiOutMsg.addPlainTextPart('text part 2');\n       return multiOutMsg;\n      /*************************************************************** \n       YOU CAN OUTPUT A SinglePartOutMsg (see full API for sn_cs.SinglePartOutMsg), \n       LIKE THIS:\n       \n       var singleOutMsg = new sn_cs.SinglePartOutMsg();\n       singleOutMsg.setTextPart('text part');\n       return singleOutMsg;\n      ****************************************************************/ \n          \n      /*************************************************************** \n       OR YOU CAN OUTPUT A MultiPartOutMsg (see full API for sn_cs.MultiPartOutMsg),\n       LIKE THIS:\n       \n       var multiOutMsg = new sn_cs.MultiPartOutMsg();\n       multiOutMsg.setNavigationLabel('Click for More');\n       multiOutMsg.addPlainTextPart('text part 1');\n       multiOutMsg.addPlainTextPart('text part 2');\n       return multiOutMsg;\n      ****************************************************************/\n      \n      /***************************************************************\n       * NOTE: You can include conditional logic when building the \n       * output content. For example, if constructing a sn_cs.MultiPartOutMsg \n       * then you might want to add 3 parts under condition (A) but 7 parts \n       * under condition (B).\n       *\n       * HOWEVER, do NOT include conditional logic that varies the output TYPE.\n       * That is, do NOT include a condition that might return either a\n       * sn_cs.SinglePartOutMsg under condition (A) but returns a \n       * sn_cs.MultiPartOutMsg under condition (B).\n       ****************************************************************/\n})()\n",
+          "applicability": ""
+        }
+      },
+      "edges": [
+        {
+          "id": "e0b71e3fb4d74dabbd68ea2afe3bb5ee",
+          "edgeType": "Edge",
+          "source": "db350c219de14686b61abb45ada166f5",
+          "target": "12982bfd55454a8dada61a424c904932",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "08fec2994cb24835a0c5d020208fba41",
+          "edgeType": "Edge",
+          "source": "200bd9efea5847e7b289ece42b8a6285",
+          "target": "db350c219de14686b61abb45ada166f5",
+          "sourcePort": "",
+          "targetPort": ""
+        }
+      ]
+    }
+  },
+  "variables": {}
+}</graph>
+        <key_phrases>Wait</key_phrases>
+        <live_agent>false</live_agent>
+        <name>Wait</name>
+        <roles/>
+        <sys_class_name>sys_cb_topic</sys_class_name>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-11-09 11:17:57</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_id>ab64d1634f61eb0035e0fdb28110c713</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Wait</sys_name>
+        <sys_package display_value="Cozmo Guard" source="x_snc_cozmo_guard">2df0e27d4fdf1f009881c5c18110c780</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Cozmo Guard">2df0e27d4fdf1f009881c5c18110c780</sys_scope>
+        <sys_update_name>sys_cb_topic_ab64d1634f61eb0035e0fdb28110c713</sys_update_name>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2018-11-09 12:01:53</sys_updated_on>
+        <variables/>
+    </sys_cb_topic>
+    <sys_variable_value action="delete_multiple" query="document_key=ab64d1634f61eb0035e0fdb28110c713"/>
+</record_update>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_macro">
+    <sys_ui_macro action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <description/>
+        <media_type/>
+        <name>codemirror</name>
+        <scoped_name>x_snc_cozmo_guard_codemirror</scoped_name>
+        <sys_class_name>sys_ui_macro</sys_class_name>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-07-15 18:21:34</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>62d1dc064f175f009881c5c18110c7d1</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>codemirror</sys_name>
+        <sys_package display_value="Cozmo Guard" source="x_snc_cozmo_guard">2df0e27d4fdf1f009881c5c18110c780</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Cozmo Guard">2df0e27d4fdf1f009881c5c18110c780</sys_scope>
+        <sys_update_name>sys_ui_macro_62d1dc064f175f009881c5c18110c7d1</sys_update_name>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2018-07-16 09:42:27</sys_updated_on>
+        <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/codemirror.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/mode/python/python.js">
+</script>
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.39.0/codemirror.min.css"></link>
+	
+	<script>
+	    //bad practice, but nice
+		var cm =
+		CodeMirror.fromTextArea(document.getElementById('x_snc_cozmo_guard_python_commands.script'),
+		{
+			mode: "python",
+			theme: "default",
+			lineNumbers: true
+		});
+	
+	</script>
+
+	<style>
+		.CodeMirror{
+			border: 1px solid #bdc0c4;
+			border-radius: 3px;
+		}
+		.cm-tab {
+         background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+         background-position: right;
+         background-repeat: no-repeat;
+      }
+	</style>
+
+
+</j:jelly>]]></xml>
+    </sys_ui_macro>
+</record_update>

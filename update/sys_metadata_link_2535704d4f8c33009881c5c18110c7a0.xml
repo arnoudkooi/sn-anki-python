@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>52de748a4f575f009881c5c18110c740</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_cozmo_guard_python_commands">
+    <x_snc_cozmo_guard_python_commands action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <file_name>saveimage2.py</file_name>
+        <name>SaveImage</name>
+        <script>import cozmo&#13;
+import sys&#13;
+import time&#13;
+&#13;
+def take_picture(robot: cozmo.robot.Robot):&#13;
+	robot.camera.color_image_enabled = True&#13;
+	robot.move_lift(-3)&#13;
+	robot.set_head_angle(cozmo.robot.MAX_HEAD_ANGLE).wait_for_completed()&#13;
+	time.sleep(5)&#13;
+	latest_image = robot.world.latest_image&#13;
+	latest_image.raw_image.convert('L').save("c:\\cozmo\\images\\"+ sys.argv[1] +".jpeg")&#13;
+    &#13;
+cozmo.run_program(take_picture,use_viewer=True,force_viewer_on_top=True)</script>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-07-15 21:31:29</sys_created_on>
+        <sys_id>52de748a4f575f009881c5c18110c740</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2018-07-15 23:06:26</sys_updated_on>
+        <test_parameters>arnoud</test_parameters>
+    </x_snc_cozmo_guard_python_commands>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2019-03-05 21:13:43</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>2535704d4f8c33009881c5c18110c7a0</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>saveimage2.py</sys_name>
+        <sys_package display_value="Cozmo Guard" source="x_snc_cozmo_guard">2df0e27d4fdf1f009881c5c18110c780</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Cozmo Guard">2df0e27d4fdf1f009881c5c18110c780</sys_scope>
+        <sys_update_name>sys_metadata_link_2535704d4f8c33009881c5c18110c7a0</sys_update_name>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2019-03-05 21:13:43</sys_updated_on>
+        <tablename>x_snc_cozmo_guard_python_commands</tablename>
+    </sys_metadata_link>
+</record_update>

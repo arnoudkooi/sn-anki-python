@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_snc_cozmo_guard.CozmoCommands</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Creating and executing a CommandProbe on the MID server</description>
+        <name>CozmoCommands</name>
+        <script><![CDATA[var CozmoCommands = Class.create();
+
+CozmoCommands.prototype = {
+   initialize : function(mid_server) {
+      this.midServer = mid_server;
+      this.source = "Cozmo";
+      this.name = "CozmoCommands"; // optional probe name
+	  this.topic = "";
+	  this.payloadDoc = new XMLDocument2("parameters");
+   },   
+   
+   setName : function(name) {
+      this.name = name;
+   },
+	
+   setTopic : function(topic) {
+      this.topic = topic;
+   },
+   
+   setSource : function(s) {
+      this.source = s;
+   },
+	
+  addParameter : function(name, value) {
+    var el = this.payloadDoc.createElement("parameter");
+    el.setAttribute("name", name);
+    el.setAttribute("value", value);
+  },
+
+  setJavascript : function(script) {
+	this.topic = "JavascriptProbe";
+    this.addParameter("script", script);
+  },	
+   
+   setCommand : function(cmd) {
+	  this.topic = "topic";
+      this.addParameter("command", cmd);
+   },
+   
+   create : function() {
+      var egr = new GlideRecord("ecc_queue");
+      egr.agent = "mid.server." + this.midServer;
+      egr.queue = "output";
+      egr.state = "ready";
+      egr.topic = this.topic;
+      egr.name = this.name;
+      egr.source = this.source;
+      egr.payload = this.payloadDoc.toString();
+      return egr.insert();
+   },
+   
+   type: 'CozmoCommands'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-07-15 14:57:26</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>75a4ef794f935f009881c5c18110c7b5</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>CozmoCommands</sys_name>
+        <sys_package display_value="Cozmo Guard" source="x_snc_cozmo_guard">2df0e27d4fdf1f009881c5c18110c780</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Cozmo Guard">2df0e27d4fdf1f009881c5c18110c780</sys_scope>
+        <sys_update_name>sys_script_include_75a4ef794f935f009881c5c18110c7b5</sys_update_name>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2018-07-15 15:14:41</sys_updated_on>
+    </sys_script_include>
+</record_update>

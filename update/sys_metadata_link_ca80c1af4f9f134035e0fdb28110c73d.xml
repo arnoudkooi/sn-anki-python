@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>c067797a4f57df0035e0fdb28110c7f6</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_cozmo_guard_python_commands">
+    <x_snc_cozmo_guard_python_commands action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <file_name>say_texttt.py</file_name>
+        <name>Say Texttt</name>
+        <script>class PeekABoo:&#13;
+&#13;
+&#13;
+    def __init__(self, *a, **kw):&#13;
+        self.coz = None&#13;
+        self.face = None&#13;
+        self.name = None&#13;
+        self.count = 0&#13;
+        cozmo.connect(self.run)&#13;
+&#13;
+&#13;
+    async def run(self, coz_conn):&#13;
+        self.coz = await coz_conn.wait_for_robot()&#13;
+&#13;
+        while True:&#13;
+            find_face = self.coz.start_behavior(&#13;
+                cozmo.behavior.BehaviorTypes.FindFaces)&#13;
+            time.sleep(3)&#13;
+            try:&#13;
+                self.face = await self.coz.world.wait_for_observed_face(timeout=30)&#13;
+                print("Found face", self.face)&#13;
+            except asyncio.TimeoutError:&#13;
+                print("Didn't find a face")&#13;
+&#13;
+            finally:&#13;
+                find_face.stop()&#13;
+&#13;
+            if self.face is None:&#13;
+                anim = await self.coz.play_anim_trigger(cozmo.anim.Triggers.PounceFail).wait_for_completed()&#13;
+            else:&#13;
+                anim = await self.coz.play_anim_trigger(cozmo.anim.Triggers.PounceSuccess).wait_for_completed()&#13;
+                await self.coz.set_head_angle(degrees(45.0)).wait_for_completed()&#13;
+                if self.face.name == "":&#13;
+                    await self.coz.say_text("My name is, Cozmo").wait_for_completed()&#13;
+                    await self.coz.say_text("I am a sentient robot who knows a thing or two about you silly humans.").wait_for_completed()&#13;
+                    await self.coz.say_text("What is your name?").wait_for_completed()&#13;
+                    new_name = input("Input your name.")&#13;
+                    self.name = new_name&#13;
+                    # await self.face.face.name(new_name).wait_for_completed()&#13;
+                    await self.coz.say_text("Hi" + new_name).wait_for_completed()&#13;
+                else:&#13;
+                    await self.coz.say_text("Hi" + self.face.name).wait_for_completed()&#13;
+&#13;
+                await self.coz.say_text("Let's play peek a boo, Dude!").wait_for_completed()&#13;
+                await self.start_game()&#13;
+&#13;
+&#13;
+    async def start_game(self):&#13;
+        await self.coz.play_anim_trigger(cozmo.anim.Triggers.CubePounceWinSession).wait_for_completed()&#13;
+        count = 0&#13;
+        while True:&#13;
+            if count &gt;= 6:&#13;
+                await self.end_game()&#13;
+            peek_a_boo_find_face = self.coz.start_behavior(&#13;
+                cozmo.behavior.BehaviorTypes.FindFaces)&#13;
+            time.sleep(3)&#13;
+            count = count + 1&#13;
+            new_face = None&#13;
+            try:&#13;
+                new_face = await self.coz.world.wait_for_observed_face(timeout=15)&#13;
+                print("Found face", new_face)&#13;
+            except asyncio.TimeoutError:&#13;
+                print("Didn't find a face")&#13;
+            finally:&#13;
+                peek_a_boo_find_face.stop()&#13;
+&#13;
+            if new_face is not None:&#13;
+                if new_face.face_id == self.face.face_id:&#13;
+                    seeyou_text = [", I see you", ", you are here", ", haha",&#13;
+                                ", You are so funny", ", you are really good at hide and seek."]&#13;
+                    anim = await self.coz.play_anim("anim_sparking_success_02").wait_for_completed()&#13;
+                    await self.coz.say_text(self.name + random.choice(seeyou_text)).wait_for_completed()&#13;
+                else:&#13;
+                    await self.coz.drive_wheels(-400, -400, duration=1)&#13;
+                    await self.coz.say_text("who are you, you look weird").wait_for_completed()&#13;
+                    await self.coz.turn_in_place(degrees(90)).wait_for_completed()&#13;
+                    await self.coz.drive_wheels(500, 500, duration=1)&#13;
+                    await self.coz.say_text("You are not, " + self.name).wait_for_completed()&#13;
+                    await self.coz.turn_in_place(degrees(170)).wait_for_completed()&#13;
+                    await self.coz.say_text("Where is, " + self.name).wait_for_completed()&#13;
+                    await self.coz.drive_wheels(350, 400, duration=1)&#13;
+                    await self.coz.turn_in_place(degrees(90)).wait_for_completed()&#13;
+                    await self.coz.drive_wheels(300, 300, duration=0.5)&#13;
+                    await self.coz.say_text("I want to play with, " + self.name).wait_for_completed()&#13;
+            else:&#13;
+                anim = await self.coz.play_anim("id_rollblock_fail_01").wait_for_completed()&#13;
+                await self.coz.say_text("Where are you.").wait_for_completed()&#13;
+&#13;
+&#13;
+    async def end_game(self):&#13;
+        await self.coz.say_text("I want to sleep").wait_for_completed()&#13;
+        await self.coz.play_anim("anim_launch_sleeping_01").wait_for_completed()&#13;
+&#13;
+&#13;
+    PeekABoo()&#13;
+        </script>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-07-18 09:33:55</sys_created_on>
+        <sys_id>c067797a4f57df0035e0fdb28110c7f6</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2018-07-19 10:01:45</sys_updated_on>
+        <test_parameters>Goodevening how are you?</test_parameters>
+    </x_snc_cozmo_guard_python_commands>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>Arnoud.Kooi</sys_created_by>
+        <sys_created_on>2018-07-20 13:29:44</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>ca80c1af4f9f134035e0fdb28110c73d</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>say_texttt.py</sys_name>
+        <sys_package display_value="Cozmo Guard" source="x_snc_cozmo_guard">2df0e27d4fdf1f009881c5c18110c780</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Cozmo Guard">2df0e27d4fdf1f009881c5c18110c780</sys_scope>
+        <sys_update_name>sys_metadata_link_ca80c1af4f9f134035e0fdb28110c73d</sys_update_name>
+        <sys_updated_by>Arnoud.Kooi</sys_updated_by>
+        <sys_updated_on>2019-03-05 21:13:43</sys_updated_on>
+        <tablename>x_snc_cozmo_guard_python_commands</tablename>
+    </sys_metadata_link>
+</record_update>
